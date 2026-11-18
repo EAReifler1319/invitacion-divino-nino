@@ -3,7 +3,8 @@ from PIL import Image
 from scipy import ndimage as nd
 src, out = sys.argv[1], sys.argv[2]
 im = Image.open(src).convert('RGB')
-im = im.resize((900, round(900*im.height/im.width)), Image.LANCZOS)
+W = int(sys.argv[3]) if len(sys.argv) > 3 else 720
+im = im.resize((W, round(W*im.height/im.width)), Image.LANCZOS)
 a = np.asarray(im).astype(np.float32)
 mn, mx = a.min(2), a.max(2)
 blanco = (mn > 228) & ((mx - mn) < 18)
@@ -27,5 +28,5 @@ alpha[quitar & (nd.binary_erosion(quitar, iterations=2))] = 0
 A = np.clip(alpha, 1e-3, 1)[..., None]
 rgb = np.clip((a - (1 - A) * 255) / A, 0, 255)
 rgba = np.dstack([rgb, alpha * 255]).astype(np.uint8)
-Image.fromarray(rgba, 'RGBA').save(out, 'WEBP', quality=88, method=6)
+Image.fromarray(rgba, 'RGBA').save(out, 'WEBP', quality=int(sys.argv[4]) if len(sys.argv) > 4 else 80, method=6)
 print(rgba.shape)
