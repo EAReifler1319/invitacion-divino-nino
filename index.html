@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Fiesta del Divino Niño – Invitación</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3d5a8e">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#3d5a8e;--azul2:#334d7c;--azul3:#4b6aa0;--cielo:#9fbde8;
+  --rosa:#f3c3cf;--rosa2:#e48fa6;--rosa3:#c9607e;--blanco:#fffaf6;--oro:#e9cf8f;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--script:'Great Vibes','Cormorant Garamond',Georgia,serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh;color:var(--blanco);font-family:var(--serif);font-variant-numeric:lining-nums;font-size:21px;font-weight:500;line-height:1.55;
+  background:radial-gradient(120% 60% at 50% 0%,var(--azul3) 0%,var(--azul) 45%,var(--azul2) 100%) fixed,var(--azul);
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
+}
+.wrap{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:0 18px clamp(110px,30vw,150px)}
+
+/* ---------- Flores en las esquinas ---------- */
+.pagina{position:relative;overflow:hidden;overflow:clip;min-height:100vh}
+.esq{position:fixed;width:0;height:0;z-index:1;pointer-events:none}
+.esq.tl{top:0;left:0}.esq.tr{top:0;right:0}.esq.bl{bottom:0;left:0}.esq.br{bottom:0;right:0}
+.esq span{position:absolute;left:0;top:0;width:min(84vw,390px);aspect-ratio:1000/601;background:url(rosas.webp) center/contain no-repeat;
+  transform:translate(-50%,-50%) rotate(var(--r)) translateY(var(--d,-27%));filter:drop-shadow(0 6px 12px rgba(15,25,60,.3))}
+.esq.tl span{--r:135deg}.esq.tr span{--r:-135deg}.esq.bl span{--r:45deg}.esq.br span{--r:-45deg}
+
+/* ---------- Pétalos ---------- */
+.petalos{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.petalos i{position:absolute;top:-30px;display:block;border-radius:150% 0 150% 0;
+  background:linear-gradient(135deg,#fbd9e2,#ef9fb5 60%,#e283a0);opacity:.9;
+  animation:caer linear infinite,mecer ease-in-out infinite alternate}
+@keyframes caer{to{top:110vh}}
+@keyframes mecer{0%{transform:translateX(-22px) rotate(0deg)}100%{transform:translateX(22px) rotate(220deg)}}
+
+/* ---------- Portada ---------- */
+.portada{position:relative;text-align:center;padding-top:clamp(70px,20vw,100px)}
+.cielo{position:relative;width:min(80vw,350px);margin:10px auto 0;aspect-ratio:900/1205}
+.cielo::before{ /* resplandor */
+  content:"";position:absolute;inset:-12% -30% 0;z-index:0;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(238,244,255,.85) 0%,rgba(185,208,241,.6) 30%,rgba(135,169,220,.35) 58%,rgba(110,145,205,.12) 80%,transparent 100%);
+}
+/* Rayo de sol hacia la corona */
+.haz{position:absolute;left:50%;top:9%;width:min(92vw,470px);height:0;z-index:2;transform-origin:0 0;rotate:-33deg;pointer-events:none}
+.haz i{position:absolute;left:0;display:block;filter:blur(4px)}
+.haz .r1{top:-90px;height:180px;width:100%;clip-path:polygon(0 46%,100% 0,100% 100%,0 54%);
+  background:linear-gradient(90deg,rgba(255,250,225,1),rgba(255,244,205,.75) 35%,rgba(255,236,185,.55) 100%);animation:pulso 4s ease-in-out infinite}
+.haz .r2{top:-130px;height:260px;width:100%;clip-path:polygon(0 49%,100% 0,100% 100%,0 51%);
+  background:linear-gradient(90deg,rgba(255,250,225,.5),rgba(255,240,200,.18) 60%,rgba(255,232,180,.12));filter:blur(10px);animation:pulso 6s ease-in-out infinite reverse}
+.haz .r3{top:-30px;height:60px;width:100%;clip-path:polygon(0 48%,100% 10%,100% 90%,0 52%);background:linear-gradient(90deg,#fffbe8,rgba(255,246,210,.4) 50%,rgba(255,240,200,.25));filter:blur(2px)}
+.haz .sol{left:auto;right:-90px;top:-110px;width:220px;height:220px;border-radius:50%;filter:none;
+  background:radial-gradient(closest-side,#fffdf0 0%,rgba(255,244,200,.85) 22%,rgba(255,232,170,.35) 50%,transparent 100%)}
+@keyframes pulso{0%,100%{opacity:.75}50%{opacity:1}}
+.corona{position:absolute;left:50%;top:12%;width:62%;aspect-ratio:1;translate:-50% -50%;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,#fffbe6 0%,rgba(255,236,160,.95) 28%,rgba(255,214,110,.6) 50%,rgba(255,200,90,.22) 72%,transparent 100%);animation:luz 3s ease-in-out infinite}
+.chispa{position:absolute;z-index:2;color:#fff6cf;font-size:15px;line-height:1;translate:-50% -50%;text-shadow:0 0 6px #ffe9a8,0 0 12px #ffd36b;animation:titilar 2.2s ease-in-out infinite}
+@keyframes luz{0%,100%{opacity:.8;transform:scale(.95)}50%{opacity:1;transform:scale(1.08)}}
+/* Nubes */
+.nube{position:absolute;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(30,50,100,.18))}
+.nube svg{display:block;width:100%;height:auto}
+.atras{z-index:1;opacity:.75}
+.frente{z-index:4}
+.deriva{animation:deriva 9s ease-in-out infinite alternate}
+.deriva.b{animation-duration:12s;animation-direction:alternate-reverse}
+@keyframes deriva{from{transform:translateX(-10px)}to{transform:translateX(12px)}}
+.viaja{z-index:0;opacity:.45;animation:viaja linear infinite}
+@keyframes viaja{from{transform:translateX(-60vw)}to{transform:translateX(130vw)}}
+.rayos{position:absolute;left:50%;top:30%;width:170%;aspect-ratio:1;translate:-50% -50%;z-index:0;opacity:.35;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.55) 0deg 4deg,transparent 4deg 18deg);
+  -webkit-mask:radial-gradient(closest-side,#000 10%,transparent 70%);mask:radial-gradient(closest-side,#000 10%,transparent 70%);
+  animation:girar 60s linear infinite}
+@keyframes girar{to{rotate:360deg}}
+.nino{position:relative;z-index:3;width:100%;height:100%;display:block;animation:flotar 5s ease-in-out infinite}
+.nino img{position:relative;z-index:1;width:100%;height:100%;display:block;filter:drop-shadow(0 0 14px rgba(255,255,255,.55)) drop-shadow(0 0 30px rgba(255,236,190,.35))}
+@keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.brillo{position:absolute;z-index:5;color:#fff;font-size:14px;animation:titilar 2.4s ease-in-out infinite;text-shadow:0 0 8px #fff}
+@keyframes titilar{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+
+.titulo{margin:clamp(72px,20vw,90px) 0 0;position:relative;z-index:5;font-weight:600;font-size:clamp(40px,12.4vw,54px);line-height:1.08;letter-spacing:.05em;text-transform:uppercase;
+  background:linear-gradient(100deg,#fff 0%,#fff 35%,#ffeec4 45%,#ffd6e1 52%,#fff 62%,#fff 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 10px rgba(15,25,55,.45));animation:entrar 1s both,brillar 7s ease-in-out 1s infinite}
+@keyframes brillar{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.titulo small{display:block;font-size:.56em;letter-spacing:.16em;font-weight:500}
+.fecha{position:relative;margin:22px auto 0;width:min(88%,350px);padding:12px 0;border-top:1px solid rgba(233,207,143,.85);border-bottom:1px solid rgba(233,207,143,.85);
+  font-size:clamp(25px,7.4vw,31px);font-weight:600;letter-spacing:.11em;text-transform:uppercase;line-height:1.25;text-shadow:0 2px 10px rgba(15,25,55,.35)}
+.fecha::before,.fecha::after{content:"\2726";position:absolute;left:50%;translate:-50% -50%;font-size:13px;color:var(--oro);background:var(--azul);padding:0 8px;line-height:1;text-shadow:none}
+.fecha::before{top:0}.fecha::after{top:100%}
+.fecha span{display:block;margin-top:2px;font-size:.74em;letter-spacing:.22em;color:#ffe3ea}
+.navidad{margin:30px 0 6px;font-family:var(--script);font-size:clamp(36px,10.4vw,46px);line-height:1.15;color:#ffe3ea;text-shadow:0 2px 10px rgba(15,25,55,.35)}
+.texto{margin:14px 4px 0;font-size:clamp(21px,6vw,23px);text-shadow:0 1px 8px rgba(15,25,55,.3)}
+.texto b,.card p b{font-weight:700;color:#f9dc92;text-shadow:0 0 12px rgba(249,220,146,.35),0 1px 6px rgba(15,25,55,.35)}
+.nombre{font-family:var(--script);font-size:1.85em;font-weight:400;color:var(--rosa);line-height:1;display:inline-block;padding:0 2px}
+.adorno{display:flex;align-items:center;justify-content:center;gap:10px;margin:26px auto 0;color:var(--rosa);width:70%}
+.adorno::before,.adorno::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)}
+
+/* ---------- Tarjetas ---------- */
+.card{position:relative;margin-top:34px;padding:30px 22px 26px;border-radius:30px;border:0;
+  background:radial-gradient(130% 90% at 50% 0%,rgba(104,132,186,.86) 0%,rgba(76,104,158,.82) 55%,rgba(62,90,142,.80) 100%);
+  box-shadow:0 22px 44px -22px rgba(10,20,50,.55)}
+.card h2{margin:0 0 14px;text-align:center;font-weight:600;font-size:clamp(26px,7.6vw,30px);line-height:1.2;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 2px 10px rgba(15,25,55,.3)}
+.orn{display:block;margin:0 auto;width:min(78%,300px);aspect-ratio:800/143;background:linear-gradient(90deg,#f3c3cf,#fff6f8 50%,#f3c3cf);
+  --m:url(adorno1.png);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;opacity:.95}
+.orn.o1{margin-bottom:10px}
+.orn.o3{aspect-ratio:800/140;width:min(62%,240px);margin-top:18px;--m:url(adorno3.png)}
+.card p{margin:12px 0;font-size:clamp(20px,5.8vw,22px)}
+
+
+label{display:block;margin:18px 0 8px;font-weight:700;font-size:24px}
+input[type=text],input[type=file]{width:100%;padding:13px 14px;border:1px solid rgba(255,255,255,.45);border-radius:14px;
+  background:rgba(255,255,255,.94);color:#26365a;font:600 22px var(--serif);outline:none}
+input[type=text]::placeholder{color:#7d8aa6}
+input[type=text]:focus{border-color:var(--rosa2);box-shadow:0 0 0 3px rgba(228,143,166,.35)}
+input[type=file]{font-size:17px;padding:10px}
+input[type=file]::file-selector-button{margin-right:10px;padding:8px 12px;border:0;border-radius:10px;background:var(--rosa2);color:#fff;font:700 16px var(--serif);cursor:pointer}
+.intro{text-align:center;margin:-4px 0 6px!important;opacity:.85;font-style:italic;font-size:23px!important}
+.paso{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12)}
+.paso:first-of-type{border-top:0;padding-top:4px}
+.paso-t{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.paso-t label{margin:0;line-height:1.25}
+.num{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;font-weight:700;font-size:23px;color:#3d5a8e;
+  background:linear-gradient(145deg,#fbe6b0,#e9c46f);box-shadow:0 2px 8px rgba(233,196,111,.4)}
+.ayuda{margin:-4px 0 12px!important;font-size:21px!important;opacity:.92}
+.oculto{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.subir{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin:0;padding:22px 16px;border-radius:18px;cursor:pointer;
+  background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);text-align:center;font-weight:600;font-size:22px;
+  -webkit-tap-highlight-color:transparent;transition:background .2s,box-shadow .2s}
+.subir:active{background:rgba(255,255,255,.18)}
+.subir svg{width:40px;height:40px;color:#f9dc92}
+.subir img{width:100%;max-height:240px;object-fit:cover;border-radius:12px}
+.subir.lista{box-shadow:inset 0 0 0 2px #f9dc92}
+.subir.lista svg{display:none}
+.subir.falta,input.falta{box-shadow:0 0 0 3px rgba(255,160,180,.85)!important}
+.count{display:flex;align-items:center;gap:26px;justify-content:center;margin:4px 0}
+.cifra{display:flex;flex-direction:column;align-items:center;min-width:70px;line-height:1}
+.cifra small{font-size:20px;opacity:.9;margin-top:4px;letter-spacing:.05em}
+.count button{width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(255,255,255,.8);background:rgba(255,255,255,.1);color:#fff;font-size:28px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s,background .15s}
+.count button:active{transform:scale(.92);background:rgba(255,255,255,.25)}
+.count #n{font-size:54px;font-weight:600}
+.btn{position:relative;overflow:hidden;display:block;width:100%;margin-top:24px;padding:17px;border:0;border-radius:16px;cursor:pointer;
+  background:linear-gradient(135deg,#f1a6bb,var(--rosa2) 55%,var(--rosa3));color:#fff;font:700 25px var(--serif);letter-spacing:.04em;
+  box-shadow:0 8px 20px rgba(201,96,126,.35);-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:destello 3.5s ease-in-out infinite}
+@keyframes destello{0%,55%{left:-60%}100%{left:130%}}
+.btn.alt::after{display:none}
+.btn:active{transform:scale(.98)}.btn:disabled{opacity:.6}
+.btn.alt{background:#fff;color:var(--azul);text-decoration:none;text-align:center;box-shadow:0 8px 20px rgba(15,25,60,.3)}
+.ok{text-align:center;margin-top:14px;font-size:22px;color:#fff}
+.ok:empty{display:none}
+.ok.error{padding:12px 14px;border-radius:14px;background:rgba(255,150,175,.22);color:#ffe3ea}
+.ok.bien{padding:14px;border-radius:14px;background:rgba(249,220,146,.18);color:#fff3d6;font-size:23px}
+.note{font-size:19px;opacity:.9}
+table{width:100%;border-collapse:collapse;font-size:17px;margin-top:8px}td,th{padding:8px 6px;border-bottom:1px solid rgba(255,255,255,.25);text-align:left}
+.tot{font-size:28px;color:var(--rosa);font-weight:600}
+img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px solid rgba(255,255,255,.5)}
+.firma{margin-top:40px;text-align:center}
+.firma .s{font-family:var(--script);font-size:58px;color:var(--rosa);line-height:1.1}
+.firma small{display:block;letter-spacing:.22em;text-transform:uppercase;font-size:20px;font-weight:600;opacity:.95}
+
+.portada>.fecha,.portada>.navidad,.portada>.texto,.portada>.entra{animation:entrar 1s both}
+.portada>.fecha{animation-delay:.15s}.portada>.navidad{animation-delay:.3s}.portada>.texto,.portada>.entra{animation-delay:.45s}
+@keyframes entrar{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.aparecer{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
+.aparecer.si{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.aparecer{opacity:1;transform:none}}
+</style></head><body><div class="pagina">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gNube" gradientUnits="userSpaceOnUse" x1="0" y1="10" x2="0" y2="100"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f4f8ff"/><stop offset="1" stop-color="#d3e0f4"/></linearGradient>
+    <filter id="fNube" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <symbol id="nube" viewBox="0 0 240 100">
+      <g fill="url(#gNube)" filter="url(#fNube)">
+        <ellipse cx="120" cy="80" rx="112" ry="18"/>
+        <circle cx="52" cy="66" r="26"/><circle cx="88" cy="50" r="34"/><circle cx="132" cy="40" r="40"/>
+        <circle cx="176" cy="56" r="30"/><circle cx="208" cy="70" r="20"/>
+      </g>
+      <g fill="#fff" opacity=".8"><circle cx="122" cy="30" r="18"/><circle cx="84" cy="44" r="14"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="esq tl" aria-hidden="true"><span></span></div>
+<div class="esq tr" aria-hidden="true"><span></span></div>
+
+<div class="petalos" id="petalos" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="portada">
+    <div class="cielo">
+      <div class="rayos"></div>
+      <!-- nubes que cruzan el cielo -->
+      <div class="nube viaja" style="top:18%;left:0;width:55%;animation-duration:48s;animation-delay:-20s"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube viaja" style="top:52%;left:0;width:40%;animation-duration:62s;animation-delay:-45s"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <!-- nubes de atrás -->
+      <div class="nube atras deriva" style="top:30%;left:-34%;width:62%"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube atras deriva b" style="top:44%;right:-36%;width:66%"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube atras deriva" style="top:70%;left:-28%;width:56%;opacity:.9"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube atras deriva b" style="top:76%;right:-26%;width:56%;opacity:.95"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nino"><span class="corona"></span><span class="chispa" style="left:30%;top:4%">✦</span><span class="chispa" style="left:66%;top:2%;animation-delay:.7s">✦</span><span class="chispa" style="left:72%;top:17%;animation-delay:1.4s;font-size:11px">✦</span><span class="chispa" style="left:26%;top:19%;animation-delay:2s;font-size:11px">✦</span><span class="chispa" style="left:49%;top:-2%;animation-delay:1s">✦</span><img src="divino-nino.webp" alt="Imagen del Divino Niño con los brazos abiertos"></div>
+      <!-- nubes de adelante (a sus pies) -->
+      <div class="nube frente deriva" style="bottom:-7%;left:-22%;width:72%"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube frente deriva b" style="bottom:-9%;right:-24%;width:76%"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <div class="nube frente" style="bottom:-12%;left:12%;width:76%"><svg viewBox="0 0 240 100"><use href="#nube"/></svg></div>
+      <span class="brillo" style="top:12%;left:4%">✦</span>
+      <span class="brillo" style="top:30%;right:0;animation-delay:.8s">✦</span>
+      <span class="brillo" style="top:58%;left:-2%;animation-delay:1.5s">✧</span>
+      <span class="brillo" style="top:6%;right:12%;animation-delay:2s;font-size:10px">✦</span>
+    </div>
+
+    <h1 class="titulo"><small>Fiesta del</small>Divino Niño</h1>
+    <div class="fecha">24 de diciembre<span>6:00 p. m.</span></div>
+
+    <p class="navidad">¡Qué alegría! ¡Llegó la Navidad y quiero celebrarla contigo!</p>
+    <p class="texto">Soy <span class="nombre">Emily Lamar</span>, la prioste de esta fiesta, y te invito con mucho cariño a compartir un momento de felicidad junto a las personas que más quiero.</p>
+    <span class="orn o3 entra" aria-hidden="true" style="margin:26px auto 10px"></span>
+    <p class="texto">Empezaremos con la <b>Santa Misa en San Cristóbal</b> y después nos reuniremos en el salón para compartir una <b>cena</b> y bonitos recuerdos juntos.</p>
+  </header>
+
+  <section class="card actividad aparecer">
+    <span class="orn o1" aria-hidden="true"></span>
+    <h2>Sé parte de una actividad</h2>
+    <p>Te pido que traigas un <b>regalo de $1 por cada integrante de tu familia</b>. ¡Con ellos prepararé una sorpresa en la fiesta!</p>
+    <span class="orn o3" aria-hidden="true"></span>
+  </section>
+
+  <section class="card aparecer" id="rsvp">
+    <span class="orn o1" aria-hidden="true"></span>
+    <h2>Confirma tu asistencia</h2>
+    <p class="intro">Solo completa estos 3 pasitos</p>
+
+    <div class="paso">
+      <div class="paso-t"><span class="num">1</span><label for="fam">¿Cómo se llama tu familia?</label></div>
+      <input type="text" id="fam" placeholder="Ej.: Familia Lamar Álvaro" autocomplete="off" enterkeyhint="done">
+    </div>
+
+    <div class="paso">
+      <div class="paso-t"><span class="num">2</span><label id="lbl-n">¿Cuántas personas vienen?</label></div>
+      <div class="count" role="group" aria-labelledby="lbl-n">
+        <button type="button" id="mn" aria-label="Una persona menos">−</button>
+        <div class="cifra"><span id="n">1</span><small id="nt">persona</small></div>
+        <button type="button" id="pl" aria-label="Una persona más">+</button>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-t"><span class="num">3</span><label for="pic">Sube la foto de tu familia</label></div>
+      <p class="ayuda">Es obligatoria: ¡te tengo grandes sorpresas y tú eres parte de ellas!</p>
+      <label class="subir" for="pic" id="subir">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 7.6 6.5H5A2.5 2.5 0 0 0 2.5 9v8.5A2.5 2.5 0 0 0 5 20h14a2.5 2.5 0 0 0 2.5-2.5V9A2.5 2.5 0 0 0 19 6.5h-2.6L15 4.5H9Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span id="subir-t">Toca aquí para elegir la foto</span>
+        <img id="vista" alt="Foto elegida" hidden>
+      </label>
+      <input type="file" id="pic" accept="image/*" class="oculto">
+    </div>
+
+    <button type="button" class="btn" id="send">¡Confirmo mi asistencia!</button>
+    <div id="msg" class="ok"></div>
+    <span class="orn o3" aria-hidden="true"></span>
+  </section>
+
+  <section class="card" id="host" hidden>
+    <span class="orn o1" aria-hidden="true"></span>
+    <h2>Mis confirmaciones</h2>
+    <div style="text-align:center">Total confirmado: <span class="tot" id="tot">0</span> personas</div>
+    <table><thead><tr><th></th><th>Familia</th><th>Personas</th></tr></thead><tbody id="rows"></tbody></table>
+  </section>
+
+  <div class="firma"><small>Con cariño</small><div class="s">Emily Lamar</div><small>Prioste</small></div>
+</div>
+
+<script>
+let n=1,db=null,assets=null,me=null;
+const $=id=>document.getElementById(id);
+
+/* Pétalos cayendo */
+function petalos(k,rafaga){
+  const box=$('petalos');
+  for(let i=0;i<k;i++){
+    const p=document.createElement('i'),s=8+Math.random()*10;
+    p.style.left=Math.random()*100+'%';p.style.width=s+'px';p.style.height=s*0.75+'px';
+    const d=7+Math.random()*7;
+    p.style.animationDuration=d+'s,'+(2+Math.random()*2)+'s';
+    p.style.animationDelay=(rafaga?Math.random()*1.5:-Math.random()*d)+'s,0s';
+    if(rafaga){p.style.animationIterationCount='1,infinite';setTimeout(()=>p.remove(),(d+2)*1000)}
+    box.appendChild(p);
+  }
+}
+petalos(window.innerWidth<600?14:22);
+
+/* Aparecer al hacer scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('si');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.aparecer').forEach(el=>io.observe(el));
+
+function setN(v){n=Math.max(1,Math.min(30,v));$('n').textContent=n;$('nt').textContent=n==1?'persona':'personas'}
+$('mn').onclick=()=>setN(n-1);$('pl').onclick=()=>setN(n+1);
+
+/* Número de WhatsApp de la prioste (con código de país, sin + ni espacios). Ej.: 593991234567 */
+const WHATSAPP='';
+function aviso(t,tipo){const m=$('msg');m.className='ok '+(tipo||'');m.textContent=t}
+/* Foto: vista previa */
+$('pic').onchange=()=>{
+  const f=$('pic').files[0],v=$('vista');
+  $('subir').classList.remove('falta');
+  if(!f){v.hidden=true;$('subir').classList.remove('lista');$('subir-t').textContent='Toca aquí para elegir la foto';return}
+  v.src=URL.createObjectURL(f);v.hidden=false;$('subir').classList.add('lista');$('subir-t').textContent='¡Foto lista! Toca para cambiarla';
+};
+$('fam').oninput=()=>$('fam').classList.remove('falta');
+async function porWhatsApp(fam){
+  const texto='¡Hola, Emily! Confirmamos asistencia a la Fiesta del Divino Niño del 24 de diciembre. Familia: '+fam+'. Vamos '+n+' '+(n==1?'persona':'personas')+'.';
+  const f=$('pic').files[0];
+  /* En el celular: compartir texto + foto juntos (WhatsApp, etc.) */
+  try{
+    if(f&&navigator.canShare&&navigator.canShare({files:[f]})){
+      await navigator.share({text:texto,files:[f]});
+      aviso('¡Gracias, '+fam+'! Los espero con mucho cariño.','bien');petalos(40,true);return;
+    }
+  }catch(e){if(e&&e.name==='AbortError')return}
+  const url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto+' Te envío la foto de nuestra familia.');
+  const m=$('msg');m.className='ok';
+  m.innerHTML='<p style="margin:0 0 4px">Último paso: envía tu confirmación por WhatsApp y <b>adjunta ahí la foto</b>.</p><a class="btn alt" target="_blank" rel="noopener" href="'+url+'">Enviar por WhatsApp</a>';
+}
+(async()=>{
+  try{
+    const c=window.claude;
+    if(c){
+      const user=await c.use('user'); db=await c.use('db'); assets=await c.use('assets');
+      if(user){me=await user.id(); if(user.isOwner()&&db)watch()}
+    }
+  }catch(e){}
+})();
+function watch(){
+  $('host').hidden=false;
+  db.collection('rsvps').onSnapshot(s=>{
+    let tot=0,h='';
+    const e=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    s.forEach(d=>{const r=d.data();tot+=r.people||0;
+      h+='<tr><td>'+(r.photo?'<img class="fam" src="/_blob/'+e(r.photo)+'" alt="">':'')+'</td><td>'+e(r.family||'')+'</td><td>'+(r.people||0)+'</td></tr>'});
+    $('tot').textContent=tot;$('rows').innerHTML=h||'<tr><td colspan="3">Aún no hay confirmaciones</td></tr>';
+  },()=>{});
+}
+$('send').onclick=async()=>{
+  const fam=$('fam').value.trim();
+  if(!fam){aviso('Falta el paso 1: escribe el nombre de tu familia.','error');$('fam').classList.add('falta');$('fam').focus();return}
+  if(!$('pic').files[0]){aviso('Falta el paso 3: elige la foto de tu familia.','error');$('subir').classList.add('falta');$('subir').scrollIntoView({behavior:'smooth',block:'center'});return}
+  if(!db||!me||!assets){porWhatsApp(fam);return}
+  $('send').disabled=true;$('send').textContent='Enviando...';
+  try{
+    const photo=(await assets.upload($('pic').files[0])).id;
+    await db.collection('rsvps').doc(me).set({family:fam,people:n,photo,at:Date.now()});
+    aviso('¡Gracias, '+fam+'! Tu asistencia quedó confirmada. ¡Los espero con mucho cariño!','bien');petalos(40,true);
+    $('send').textContent='¡Asistencia confirmada!';
+  }catch(e){$('send').disabled=false;$('send').textContent='¡Confirmo mi asistencia!';porWhatsApp(fam)}
+};
+</script>
+<div class="esq bl" aria-hidden="true"><span></span></div>
+<div class="esq br" aria-hidden="true"><span></span></div>
+</div>
+</body></html>
