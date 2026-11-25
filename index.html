@@ -2,6 +2,13 @@
 <html lang="es"><head><meta charset="utf-8"><title>Fiesta del Divino Niño – Invitación</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#3d5a8e">
+<meta name="description" content="Emily Lamar te invita a la Fiesta del Divino Niño: 24 de diciembre, 6:00 p. m., iglesia de San Cristóbal (Guajaló, Quito).">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fiesta del Divino Niño · 24 de diciembre">
+<meta property="og:description" content="Te invito a vivir una noche llena de luz, alegría y familia. ¡Confirma tu asistencia aquí!">
+<meta property="og:image" content="https://eareifler1319.github.io/invitacion-divino-nino/img/compartir.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="img/divino-nino.webp" type="image/webp" fetchpriority="high">
 <link rel="preload" as="image" href="img/rosas.webp" type="image/webp">
@@ -18,14 +25,27 @@
 html,body{margin:0}
 body{
   min-height:100vh;color:var(--blanco);font-family:var(--serif);font-variant-numeric:lining-nums;font-size:21px;font-weight:500;line-height:1.55;
-  background:radial-gradient(120% 60% at 50% 0%,var(--azul3) 0%,var(--azul) 45%,var(--azul2) 100%) fixed,var(--azul);
+  background:var(--azul2);
   padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
 }
+/* Fondo fijo en su propia capa (se pinta una sola vez, no en cada scroll) con estrellitas quietas */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;will-change:transform;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 22%,rgba(255,255,255,.75),transparent 60%),
+    radial-gradient(1px 1px at 28% 64%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(1.5px 1.5px at 46% 38%,rgba(255,246,214,.7),transparent 60%),
+    radial-gradient(1px 1px at 63% 81%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(1.5px 1.5px at 78% 15%,rgba(255,255,255,.7),transparent 60%),
+    radial-gradient(1px 1px at 88% 52%,rgba(255,246,214,.6),transparent 60%),
+    radial-gradient(1px 1px at 6% 88%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(1.5px 1.5px at 94% 92%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(120% 60% at 50% 0%,var(--azul3) 0%,var(--azul) 45%,var(--azul2) 100%)}
 .wrap{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:0 18px clamp(110px,30vw,150px)}
 
 /* ---------- Flores en las esquinas ---------- */
 .pagina{position:relative;overflow:hidden;overflow:clip;min-height:100vh}
-.esq{position:fixed;width:0;height:0;z-index:1;pointer-events:none}
+/* Las rosas adornan el inicio y el final de la página (ya no tapan el texto al leer) */
+.esq{position:absolute;width:0;height:0;z-index:1;pointer-events:none}
 .esq.tl{top:0;left:0}.esq.tr{top:0;right:0}.esq.bl{bottom:0;left:0}.esq.br{bottom:0;right:0}
 .esq span{position:absolute;left:0;top:0;width:min(84vw,390px);aspect-ratio:800/481;background:url(img/rosas.webp) center/contain no-repeat;
   transform:translate(-50%,-50%) rotate(var(--r)) translateY(var(--d,-27%));filter:drop-shadow(0 6px 12px rgba(15,25,60,.3))}
@@ -33,10 +53,11 @@ body{
 
 /* ---------- Pétalos ---------- */
 .petalos{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}
-.petalos i{position:absolute;top:-30px;display:block;border-radius:150% 0 150% 0;
+/* Caen con "translate" (lo mueve la tarjeta gráfica) en vez de "top" (recalculaba la página en cada cuadro) */
+.petalos i{position:absolute;top:0;display:block;border-radius:150% 0 150% 0;translate:0 -30px;will-change:translate,transform;
   background:linear-gradient(135deg,#fbd9e2,#ef9fb5 60%,#e283a0);opacity:.9;
   animation:caer linear infinite,mecer ease-in-out infinite alternate}
-@keyframes caer{to{top:110vh}}
+@keyframes caer{to{translate:0 calc(100vh + 40px)}}
 @keyframes mecer{0%{transform:translateX(-22px) rotate(0deg)}100%{transform:translateX(22px) rotate(220deg)}}
 
 /* ---------- Portada ---------- */
@@ -100,9 +121,10 @@ body{
 .adorno::before,.adorno::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)}
 
 /* ---------- Tarjetas ---------- */
-.card{position:relative;margin-top:34px;padding:30px 22px 26px;border-radius:30px;border:0;
-  background:radial-gradient(130% 90% at 50% 0%,rgba(104,132,186,.86) 0%,rgba(76,104,158,.82) 55%,rgba(62,90,142,.80) 100%);
-  box-shadow:0 22px 44px -22px rgba(10,20,50,.55)}
+.card{position:relative;margin-top:34px;padding:30px 22px 26px;border-radius:30px;border:1px solid rgba(233,207,143,.3);
+  background:radial-gradient(130% 90% at 50% 0%,rgba(104,132,186,.88) 0%,rgba(76,104,158,.84) 55%,rgba(62,90,142,.82) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 0 6px rgba(255,255,255,.03),0 22px 44px -22px rgba(10,20,50,.55)}
+.card::before{content:"";position:absolute;inset:8px;border-radius:23px;border:1px dashed rgba(233,207,143,.16);pointer-events:none}
 .card h2{margin:0 0 14px;text-align:center;font-weight:600;font-size:clamp(26px,7.6vw,30px);line-height:1.2;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 2px 10px rgba(15,25,55,.3)}
 .orn{display:block;margin:0 auto;width:min(78%,300px);aspect-ratio:800/143;background:linear-gradient(90deg,#f3c3cf,#fff6f8 50%,#f3c3cf);
   --m:url(img/adorno1.webp);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;opacity:.95}
@@ -145,8 +167,8 @@ input[type=file]::file-selector-button{margin-right:10px;padding:8px 12px;border
 .btn{position:relative;overflow:hidden;display:block;width:100%;margin-top:24px;padding:17px;border:0;border-radius:16px;cursor:pointer;
   background:linear-gradient(135deg,#f1a6bb,var(--rosa2) 55%,var(--rosa3));color:#fff;font:700 25px var(--serif);letter-spacing:.04em;
   box-shadow:0 8px 20px rgba(201,96,126,.35);-webkit-tap-highlight-color:transparent;transition:transform .15s}
-.btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:destello 3.5s ease-in-out infinite}
-@keyframes destello{0%,55%{left:-60%}100%{left:130%}}
+.btn::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-150%) skewX(-20deg);animation:destello 3.5s ease-in-out infinite}
+@keyframes destello{0%,55%{transform:translateX(-150%) skewX(-20deg)}100%{transform:translateX(330%) skewX(-20deg)}}
 .btn.alt::after{display:none}
 .btn:active{transform:scale(.98)}.btn:disabled{opacity:.6}
 .btn.alt{background:#fff;color:var(--azul);text-decoration:none;text-align:center;box-shadow:0 8px 20px rgba(15,25,60,.3)}
@@ -204,6 +226,20 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 .hecho li{margin:6px 0}
 .aparecer{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
 .aparecer.si{opacity:1;transform:none}
+/* Cuenta regresiva */
+.cuenta{display:flex;justify-content:center;gap:10px;margin:20px auto 0}
+.cuenta[hidden]{display:none}
+.cuenta div{min-width:76px;padding:10px 6px 8px;border-radius:16px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(233,207,143,.45);line-height:1}
+.cuenta b{display:block;font-size:34px;font-weight:600;color:#f9dc92;font-variant-numeric:tabular-nums}
+.cuenta small{display:block;margin-top:5px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+.cuenta-t{margin:14px 0 0;font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:#ffe3ea;opacity:.9}
+.portada>.cuenta-t,.portada>.cuenta{animation:entrar 1s .25s both}
+/* Línea de tiempo de la noche */
+.momentos{position:relative}
+.momentos::before{content:"";position:absolute;left:39px;top:46px;bottom:30px;width:1px;background:linear-gradient(rgba(233,207,143,.8),rgba(233,207,143,.1))}
+.momento{position:relative}
+/* Cuando la portada sale de la pantalla, sus animaciones se detienen (ahorra batería) */
+.pausa,.pausa *,.pausa *::before,.pausa *::after{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.aparecer{opacity:1;transform:none}}
 </style></head><body><div class="pagina">
 
@@ -252,14 +288,18 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 
     <h1 class="titulo"><small>Fiesta del</small>Divino Niño</h1>
     <div class="fecha">24 de diciembre<span>6:00 p. m.</span></div>
+    <p class="cuenta-t" id="cuenta-t" hidden>Faltan</p>
+    <div class="cuenta" id="cuenta" hidden><div><b id="c-d">0</b><small id="c-dt">días</small></div><div><b id="c-h">0</b><small>horas</small></div><div><b id="c-m">0</b><small>min</small></div></div>
 
     <p class="navidad">¡Qué felicidad! Llegó la Navidad y mi corazón quiere celebrarla contigo.</p>
     <p class="texto">Con mucho cariño, yo, <span class="nombre">Emily Lamar</span>, prioste de esta fiesta, te invito a vivir una noche llena de <b>luz, alegría y familia</b>.</p>
     <span class="orn o3 entra" aria-hidden="true" style="margin:26px auto 4px"></span>
     <div class="noche texto">
       <span class="tit">Así será nuestra noche</span>
+      <div class="momentos">
       <div class="momento"><span class="hora">6:00<br>p. m.</span><p>Iniciamos con la <b>Santa Misa</b> en la <b>iglesia de San Cristóbal</b>.</p></div>
       <div class="momento"><span class="hora">Después</span><p>Nos reuniremos en un pequeño salón para compartir una <b>cena</b> llena de felicidad y bonitos recuerdos para todos.</p></div>
+      </div>
       <div class="lugar">
         <span class="lug-tit">Iglesia Católica San Cristóbal</span>
         <span class="lug-dir">Guajaló, Quito</span>
@@ -371,6 +411,21 @@ petalos(window.innerWidth<600?14:22);
 /* Aparecer al hacer scroll */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('si');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.aparecer').forEach(el=>io.observe(el));
+/* Detener las animaciones de la portada cuando no se ve */
+const portada=document.querySelector('.cielo'),titulo=document.querySelector('.titulo');
+new IntersectionObserver(([e])=>{portada.classList.toggle('pausa',!e.isIntersecting);titulo.classList.toggle('pausa',!e.isIntersecting)}).observe(portada);
+/* Cuenta regresiva hasta el 24 de diciembre, 6:00 p. m. (hora de Quito) */
+const FIESTA=new Date('2026-12-24T18:00:00-05:00').getTime();
+function cuenta(){
+  const ms=FIESTA-Date.now();
+  if(ms<=0){$('cuenta').hidden=true;$('cuenta-t').hidden=true;return}
+  const m=Math.floor(ms/60000),d=Math.floor(m/1440);
+  $('c-d').textContent=d;$('c-dt').textContent=d==1?'día':'días';
+  $('c-h').textContent=Math.floor(m/60)%24;$('c-m').textContent=m%60;
+  $('cuenta').hidden=false;$('cuenta-t').hidden=false;
+  setTimeout(cuenta,60000-(Date.now()%60000)+50);
+}
+cuenta();
 
 function setN(v){n=Math.max(1,Math.min(30,v));$('n').textContent=n;$('nt').textContent=n==1?'persona':'personas'}
 $('mn').onclick=()=>setN(n-1);$('pl').onclick=()=>setN(n+1);
