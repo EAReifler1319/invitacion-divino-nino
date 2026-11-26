@@ -496,7 +496,7 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 <main class="confirmar" id="confirmar" hidden aria-labelledby="cf-t">
   <section class="card">
     <span class="orn o1" aria-hidden="true"></span>
-    <h2 id="cf-t">¡Gracias, <span id="cf-fam"></span>!</h2>
+    <h2 id="cf-t">¡Gracias, familia <span id="cf-fam"></span>!</h2>
     <p class="centro">Ya casi: falta enviarle tu confirmación a <b>Emily</b> por WhatsApp.</p>
     <div class="cf-resumen"><img id="cf-foto" alt="Foto de tu familia"><div><b id="cf-n"></b><span id="cf-r"></span></div></div>
     <a class="btn wa" id="cf-wa" href="#" target="_blank" rel="noopener">
@@ -658,7 +658,8 @@ function verConfirmar(v){
 function irConfirmar(fam,f){
   const texto=mensaje(fam),url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto);
   conf={fam,f,texto};
-  $('cf-fam').textContent=fam;
+  /* Si ya escribieron "Familia Lamar", no repetir la palabra */
+  $('cf-fam').textContent=fam.replace(/^\s*(la\s+)?familia\s+/i,'');
   $('cf-n').textContent=n+(n===1?' persona':' personas');
   $('cf-r').textContent=n+(n===1?' regalo':' regalos')+' de $1';
   $('cf-foto').src=URL.createObjectURL(f);
