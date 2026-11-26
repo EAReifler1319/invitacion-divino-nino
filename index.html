@@ -301,6 +301,19 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 .pasos-wa li{margin:5px 0}
 .pasos-wa li b,.pasos-wa p b{display:inline;margin:0;font-size:inherit}
 .pasos-wa p{margin:6px 0 0!important}
+/* ---------- Página de confirmación ---------- */
+.confirmar{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:clamp(60px,16vw,90px) 18px 150px}
+.confirmar .card{margin-top:0}
+.cf-resumen{display:flex;gap:14px;align-items:center;margin:18px 0 6px;padding:12px;border-radius:18px;background:rgba(255,255,255,.1)}
+.cf-resumen img{flex:none;width:84px;height:84px;object-fit:cover;border-radius:14px;box-shadow:0 0 0 2px rgba(249,220,146,.6)}
+.cf-resumen b{display:block;font-size:24px;color:#f9dc92;line-height:1.2}
+.cf-resumen span{font-size:19px}
+.btn.wa{background:linear-gradient(135deg,#2bd46c,#1faa59);box-shadow:0 8px 20px rgba(31,170,89,.4);color:#fff;text-decoration:none}
+.cf-link{text-align:center;font-size:17px!important;word-break:break-all;opacity:.9;margin:10px 0 0!important}
+.cf-link a{color:#fff1cf}
+.btn.sec{margin-top:10px;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1.5px rgba(249,220,146,.6);font-size:21px}
+.btn.sec::after{display:none}
+.volver{display:block;margin:22px auto 0;padding:8px;background:none;border:0;color:#fff1cf;font:600 19px var(--serif);text-decoration:underline;cursor:pointer}
 /* ---------- Cielo de noche: aparece al bajar, a los lados del contenido ---------- */
 .noche-cielo{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 1.2s ease}
 .noche-cielo.ver{opacity:1}
@@ -466,23 +479,7 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
       Confirmar mi asistencia</button>
     </div>
 
-    <div class="dinamica pasos-wa" id="how">
-      <b>Al tocar el botón:</b>
-      <ol id="how-cel">
-        <li>Se abre WhatsApp con tu foto y tu confirmación juntas.</li>
-        <li>Elige a <b>Emily</b> en tus contactos.</li>
-        <li>Presiona la flechita de <b>enviar</b> ➤</li>
-      </ol>
-      <ol id="how-pc" hidden>
-        <li>Se abre el chat de <b>Emily</b> en WhatsApp con tu confirmación.</li>
-        <li>Presiona <b>enviar</b> ➤</li>
-        <li>Toca el clip 📎 y envíale la foto de tu familia en ese mismo chat.</li>
-      </ol>
-    </div>
-    <div class="dinamica pasos-wa" id="fallback" hidden>
-      <b>Último paso:</b>
-      <p>Se abrió WhatsApp con tu mensaje. Presiona <b>enviar</b> ➤, luego toca el clip 📎, elige la foto de tu familia y envíala en ese mismo chat.</p>
-    </div>
+    <p class="nota centro" style="margin-top:14px">Al tocar el botón se abre una página con el enlace de WhatsApp para enviarle tu confirmación a Emily.</p>
     <span class="orn o3" aria-hidden="true"></span>
   </section>
 
@@ -495,6 +492,33 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 
   <div class="firma"><small>Con mucho cariño</small><div class="s">Emily Lamar</div><small>Prioste</small></div>
 </div>
+
+<main class="confirmar" id="confirmar" hidden aria-labelledby="cf-t">
+  <section class="card">
+    <span class="orn o1" aria-hidden="true"></span>
+    <h2 id="cf-t">¡Gracias, <span id="cf-fam"></span>!</h2>
+    <p class="centro">Ya casi: falta enviarle tu confirmación a <b>Emily</b> por WhatsApp.</p>
+    <div class="cf-resumen"><img id="cf-foto" alt="Foto de tu familia"><div><b id="cf-n"></b><span id="cf-r"></span></div></div>
+    <a class="btn wa" id="cf-wa" href="#" target="_blank" rel="noopener">
+      <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.2c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.1 1-.5 1.4-.4.4-1.2.8-2 .7-1.2-.1-2.7-.8-4-2.1-1.4-1.4-2.1-2.9-2.2-3.9-.1-.8.2-1.4.6-1.9Z" fill="currentColor"/></svg>
+      Abrir WhatsApp de Emily</a>
+    <p class="cf-link">Enlace: <a id="cf-url" href="#" target="_blank" rel="noopener"></a></p>
+    <div class="dinamica pasos-wa">
+      <b>Pasos:</b>
+      <ol>
+        <li>Toca <b>Abrir WhatsApp de Emily</b>.</li>
+        <li>Se abre su chat con tu confirmación ya escrita: presiona <b>enviar</b> ➤</li>
+        <li>Toca el clip 📎 y envíale la foto de tu familia en ese mismo chat.</li>
+      </ol>
+    </div>
+    <div id="cf-cel" hidden>
+      <p class="nota centro" style="margin:18px 0 0">En el celular también puedes mandar la foto y el mensaje juntos:</p>
+      <button type="button" class="btn sec" id="cf-share">Enviar foto y confirmación juntas</button>
+    </div>
+    <button type="button" class="volver" id="cf-volver">← Volver a la invitación</button>
+    <span class="orn o3" aria-hidden="true"></span>
+  </section>
+</main>
 
 <script>
 let n=2,db=null,assets=null,me=null;
@@ -623,15 +647,35 @@ $('fam').oninput=()=>$('fam').classList.remove('falta');
 function mensaje(fam){
   return '⭐ '+fam.toUpperCase()+(n===1?' asiste 1':' asisten '+n)+'\n🎁 '+n+(n===1?' regalo':' regalos')+' de $1';
 }
-/* Si el celular no puede compartir foto + mensaje juntos, abre el chat de Emily y explica el último paso */
-/* En computadora, "compartir" abre el menú de Windows/Mac (sin WhatsApp): ahí mejor abrimos el chat de Emily directo */
+/* En celular se puede mandar la foto y el mensaje juntos (en computadora "compartir" abre el menú de Windows/Mac, sin WhatsApp) */
 const CELULAR=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.userAgentData&&navigator.userAgentData.mobile)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
-if(!CELULAR){$('how-cel').hidden=true;$('how-pc').hidden=false}
-function abrirChat(texto){
-  window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto),'_blank','noopener');
-  $('how').hidden=true;$('fallback').hidden=false;
-  $('fallback').scrollIntoView({behavior:'smooth',block:'center'});
+/* Página de confirmación: se abre al tocar "Confirmar mi asistencia" (el botón atrás del celular vuelve a la invitación) */
+let conf=null;
+function verConfirmar(v){
+  $('confirmar').hidden=!v;document.querySelector('.wrap').hidden=v;
+  window.scrollTo(0,0);if(v)petalos(30,true);
 }
+function irConfirmar(fam,f){
+  const texto=mensaje(fam),url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto);
+  conf={fam,f,texto};
+  $('cf-fam').textContent=fam;
+  $('cf-n').textContent=n+(n===1?' persona':' personas');
+  $('cf-r').textContent=n+(n===1?' regalo':' regalos')+' de $1';
+  $('cf-foto').src=URL.createObjectURL(f);
+  $('cf-wa').href=url;$('cf-url').href=url;$('cf-url').textContent='wa.me/'+WHATSAPP;
+  let puede=false;
+  try{puede=CELULAR&&!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
+  $('cf-cel').hidden=!puede;
+  if(location.hash!=='#confirmar')history.pushState({cf:1},'','#confirmar');
+  verConfirmar(true);
+}
+$('cf-share').onclick=()=>{
+  if(!conf)return;
+  navigator.share({files:[conf.f],text:conf.texto,title:'Confirmación Fiesta del Niño Jesús'}).then(()=>petalos(30,true)).catch(()=>{});
+};
+$('cf-volver').onclick=()=>{if(history.state&&history.state.cf)history.back();else{history.replaceState(null,'',location.pathname+location.search);verConfirmar(false)}};
+addEventListener('popstate',()=>verConfirmar(location.hash==='#confirmar'&&!!conf));
+if(location.hash==='#confirmar')history.replaceState(null,'',location.pathname+location.search);
 (async()=>{
   try{
     const c=window.claude;
@@ -656,15 +700,7 @@ $('send').onclick=()=>{
   if(!fam){aviso('Escribe el nombre de tu familia (paso 1).','error');$('fam').classList.add('falta');$('fam').focus();return}
   if(!f){aviso('Sube la foto de tu familia (paso 3).','error');$('subir').classList.add('falta');$('subir').scrollIntoView({behavior:'smooth',block:'center'});return}
   aviso('');
-  const texto=mensaje(fam);
-  /* Compartir va primero (el celular solo lo permite justo después del toque) */
-  let puede=false;
-  try{puede=CELULAR&&!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
-  if(puede){
-    navigator.share({files:[f],text:texto,title:'Confirmación Fiesta del Niño Jesús'})
-      .then(()=>petalos(30,true))
-      .catch(e=>{if(e&&e.name==='AbortError')return;abrirChat(texto)});
-  }else abrirChat(texto);
+  irConfirmar(fam,f);
   /* Si la invitación está publicada en Claude, también se guarda en "Mis confirmaciones" */
   if(db&&me&&assets){
     assets.upload(f).then(r=>db.collection('rsvps').doc(me).set({family:fam,people:n,photo:r.id,at:Date.now()})).catch(()=>{});
