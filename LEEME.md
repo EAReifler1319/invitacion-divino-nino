@@ -1,6 +1,6 @@
 # Invitación – Gran Fiesta del Niño Jesús
 
-Link público: https://eareifler1319.github.io/invitacion-divino-nino/
+Link público: https://eareifler1319.github.io/invitacion-nino-jesus/
 
 ## Carpetas
 
