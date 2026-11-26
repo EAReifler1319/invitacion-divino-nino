@@ -28,7 +28,7 @@ for ang, pos in ((135, (-300, -280)), (-45, (W - 300, H - 250))):
     img.alpha_composite(rr, (pos[0], pos[1]))
 
 # El Niño
-nino = Image.open('img/divino-nino.webp').convert('RGBA')
+nino = Image.open('img/nino-jesus.webp').convert('RGBA')
 nh = 600
 n = nino.resize((round(nh * nino.width / nino.height), nh), Image.LANCZOS)
 glow = Image.new('RGBA', n.size, (255, 255, 255, 0))
@@ -40,7 +40,7 @@ img.alpha_composite(n, (nx, 22))
 # Textos
 dr = ImageDraw.Draw(img)
 blanco, oro, rosa = (255, 250, 246), (249, 220, 146), (255, 227, 234)
-cx = 345
+cx = 368
 def centro(txt, yy, font, fill, sp=0):
     w = dr.textlength(txt, font=font) + sp * (len(txt) - 1)
     xx = cx - w / 2
@@ -48,8 +48,8 @@ def centro(txt, yy, font, fill, sp=0):
         dr.text((xx + 2, yy + 3), ch, font=font, fill=(15, 25, 55, 110))
         dr.text((xx, yy), ch, font=font, fill=fill)
         xx += dr.textlength(ch, font=font) + sp
-centro('FIESTA DEL', 150, ImageFont.truetype(F + 'georgia.ttf', 38), blanco, 7)
-centro('DIVINO NIÑO', 205, ImageFont.truetype(F + 'georgia.ttf', 66), blanco, 3)
+centro('GRAN FIESTA DEL', 150, ImageFont.truetype(F + 'georgia.ttf', 38), blanco, 7)
+centro('NIÑO JESÚS', 205, ImageFont.truetype(F + 'georgia.ttf', 66), blanco, 3)
 dr.line((cx - 210, 315, cx + 210, 315), fill=(233, 207, 143), width=2)
 centro('24 DE DICIEMBRE', 338, ImageFont.truetype(F + 'georgiab.ttf', 36), oro, 4)
 centro('6:00 P. M.', 390, ImageFont.truetype(F + 'georgia.ttf', 28), rosa, 5)

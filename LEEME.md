@@ -1,4 +1,4 @@
-# Invitación – Fiesta del Divino Niño
+# Invitación – Gran Fiesta del Niño Jesús
 
 Link público: https://eareifler1319.github.io/invitacion-divino-nino/
 
@@ -7,7 +7,7 @@ Link público: https://eareifler1319.github.io/invitacion-divino-nino/
 | Carpeta / archivo | Qué es |
 |---|---|
 | `index.html` | La invitación. Es la página que publica GitHub Pages. |
-| `img/` | Imágenes que usa la invitación (Niño sin fondo, rosas, adornos). `compartir.jpg` es la foto que sale al mandar el link por WhatsApp. |
+| `img/` | Imágenes que usa la invitación (Niño Jesús sin fondo, rosas, adornos). `compartir.jpg` es la foto que sale al mandar el link por WhatsApp. |
 | `compartir/` | La invitación en **un solo archivo** con las imágenes adentro, para mandarla por WhatsApp o correo. |
 | `herramientas/` | Scripts para quitar fondos, armar el archivo único y crear la foto para compartir. |
 | `originales/` | Imágenes originales sin editar (solo en esta computadora, no se suben a GitHub). |
