@@ -468,10 +468,15 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 
     <div class="dinamica pasos-wa" id="how">
       <b>Al tocar el botón:</b>
-      <ol>
+      <ol id="how-cel">
         <li>Se abre WhatsApp con tu foto y tu confirmación juntas.</li>
         <li>Elige a <b>Emily</b> en tus contactos.</li>
         <li>Presiona la flechita de <b>enviar</b> ➤</li>
+      </ol>
+      <ol id="how-pc" hidden>
+        <li>Se abre el chat de <b>Emily</b> en WhatsApp con tu confirmación.</li>
+        <li>Presiona <b>enviar</b> ➤</li>
+        <li>Toca el clip 📎 y envíale la foto de tu familia en ese mismo chat.</li>
       </ol>
     </div>
     <div class="dinamica pasos-wa" id="fallback" hidden>
@@ -619,6 +624,9 @@ function mensaje(fam){
   return '⭐ '+fam.toUpperCase()+(n===1?' asiste 1':' asisten '+n)+'\n🎁 '+n+(n===1?' regalo':' regalos')+' de $1';
 }
 /* Si el celular no puede compartir foto + mensaje juntos, abre el chat de Emily y explica el último paso */
+/* En computadora, "compartir" abre el menú de Windows/Mac (sin WhatsApp): ahí mejor abrimos el chat de Emily directo */
+const CELULAR=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.userAgentData&&navigator.userAgentData.mobile)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+if(!CELULAR){$('how-cel').hidden=true;$('how-pc').hidden=false}
 function abrirChat(texto){
   window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto),'_blank','noopener');
   $('how').hidden=true;$('fallback').hidden=false;
@@ -651,7 +659,7 @@ $('send').onclick=()=>{
   const texto=mensaje(fam);
   /* Compartir va primero (el celular solo lo permite justo después del toque) */
   let puede=false;
-  try{puede=!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
+  try{puede=CELULAR&&!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
   if(puede){
     navigator.share({files:[f],text:texto,title:'Confirmación Fiesta del Niño Jesús'})
       .then(()=>petalos(30,true))
