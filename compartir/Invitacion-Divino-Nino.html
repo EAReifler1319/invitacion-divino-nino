@@ -268,6 +268,27 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 .firma small{color:#f9dc92}
 .firma .s{text-shadow:0 0 18px rgba(243,195,207,.35)}
 .firma::before{content:"";display:block;width:120px;height:1px;margin:0 auto 18px;background:linear-gradient(90deg,transparent,#f9dc92,#f3c3cf,#f9dc92,transparent)}
+/* ---------- Cielo de noche: aparece al bajar, a los lados del contenido ---------- */
+.noche-cielo{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 1.2s ease}
+.noche-cielo.ver{opacity:1}
+.noche-cielo:not(.ver) *{animation-play-state:paused!important}
+.estrella{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.7);will-change:opacity,transform;
+  animation:parpadeo var(--t,3s) ease-in-out var(--dl,0s) infinite}
+.estrella.dorada{background:#fff3cf;box-shadow:0 0 8px 2px rgba(249,220,146,.75)}
+.estrella.rosa{background:#ffe3ea;box-shadow:0 0 8px 2px rgba(243,195,207,.7)}
+.destello-c{position:absolute;line-height:1;color:#fff6d8;text-shadow:0 0 8px rgba(249,220,146,.9);translate:-50% -50%;animation:parpadeo var(--t,4s) ease-in-out var(--dl,0s) infinite}
+@keyframes parpadeo{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.1)}}
+/* Estrella fugaz: una línea de luz que cruza en diagonal y se apaga */
+.fugaz{position:absolute;width:var(--w,130px);height:2px;border-radius:2px;transform-origin:100% 50%;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,240,210,.5) 60%,#fff);
+  animation:fugaz var(--t,1.3s) cubic-bezier(.3,.1,.6,1) forwards}
+.fugaz::after{content:"";position:absolute;right:-2px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px rgba(255,236,190,.9)}
+.fugaz.rosa{background:linear-gradient(90deg,rgba(243,195,207,0),rgba(243,195,207,.55) 60%,#fff)}
+@keyframes fugaz{
+  0%{opacity:0;transform:rotate(var(--a)) translateX(0) scaleX(.3)}
+  12%{opacity:1}
+  70%{opacity:1;transform:rotate(var(--a)) translateX(var(--d,260px)) scaleX(1)}
+  100%{opacity:0;transform:rotate(var(--a)) translateX(calc(var(--d,260px) * 1.25)) scaleX(.6)}}
 /* Cuando la portada sale de la pantalla, sus animaciones se detienen (ahorra batería) */
 .pausa,.pausa *,.pausa *::before,.pausa *::after{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.aparecer{opacity:1;transform:none}}
@@ -292,6 +313,7 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
 <div class="esq tr" aria-hidden="true"><span></span></div>
 
 <div class="petalos" id="petalos" aria-hidden="true"></div>
+<div class="noche-cielo" id="noche-cielo" aria-hidden="true"></div>
 
 <div class="wrap">
   <header class="portada">
@@ -444,6 +466,55 @@ document.querySelectorAll('.aparecer').forEach(el=>io.observe(el));
 /* Detener las animaciones de la portada cuando no se ve */
 const portada=document.querySelector('.cielo'),titulo=document.querySelector('.titulo');
 new IntersectionObserver(([e])=>{portada.classList.toggle('pausa',!e.isIntersecting);titulo.classList.toggle('pausa',!e.isIntersecting)}).observe(portada);
+/* Cielo de noche a los lados: estrellas que titilan y estrellas fugaces al ir bajando */
+(()=>{
+  const cielo=$('noche-cielo'),quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lados=[];
+  /* Zonas libres a la izquierda y derecha del contenido (en el celular, las orillas) */
+  function zonas(){
+    const W=innerWidth,g=Math.max(46,(W-480)/2+24);
+    lados=[[0,Math.min(g,W*.5)],[Math.max(W-g,W*.5),W]];
+  }
+  function azar(a,b){return a+Math.random()*(b-a)}
+  function sembrar(){
+    zonas();cielo.textContent='';
+    const n=innerWidth<600?22:30;
+    for(let i=0;i<n;i++){
+      const [a,b]=lados[i%2],s=document.createElement('i'),r=Math.random();
+      s.className='estrella'+(r<.2?' dorada':r<.32?' rosa':'');
+      const t=azar(1.2,3.4);s.style.cssText='left:'+azar(a+4,b-4)+'px;top:'+azar(4,96)+'%;width:'+t+'px;height:'+t+'px;--t:'+azar(2.4,5)+'s;--dl:'+(-azar(0,5))+'s';
+      cielo.appendChild(s);
+    }
+    for(let i=0;i<(innerWidth<600?4:8);i++){
+      const [a,b]=lados[i%2],c=document.createElement('span');
+      c.className='destello-c';c.textContent=Math.random()<.5?'✦':'✧';
+      c.style.cssText='left:'+azar(a+8,b-8)+'px;top:'+azar(8,92)+'%;font-size:'+azar(9,16)+'px;--t:'+azar(3,6)+'s;--dl:'+(-azar(0,6))+'s';
+      cielo.appendChild(c);
+    }
+  }
+  function fugaz(){
+    if(!cielo.classList.contains('ver')||document.hidden)return;
+    const izq=Math.random()<.5,[a,b]=lados[izq?0:1],f=document.createElement('i');
+    const W=innerWidth,movil=W<600,d=movil?azar(140,220):azar(220,340);
+    f.className='fugaz'+(Math.random()<.3?' rosa':'');
+    /* Del centro hacia afuera y hacia abajo, como cayendo por el costado */
+    const ang=izq?azar(125,150):azar(30,55);
+    const w=movil?90:130;
+    /* La cabeza de la estrella empieza junto al contenido (en el celular, un poco adentro para que se vea cruzar la orilla) */
+    const cabeza=movil?(izq?azar(70,130):W-azar(70,130)):(izq?b-10:a+10);
+    f.style.cssText='left:'+(cabeza-w)+'px;top:'+azar(5,55)+'%;--w:'+w+'px;--a:'+ang+'deg;--d:'+d+'px;--t:'+azar(1.1,1.6)+'s';
+    cielo.appendChild(f);setTimeout(()=>f.remove(),2000);
+  }
+  sembrar();
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(sembrar,300)});
+  /* Aparece cuando ya bajaste más allá de la imagen del Niño */
+  new IntersectionObserver(([e])=>{
+    const ver=e.intersectionRatio<.45&&e.boundingClientRect.top<0;
+    if(ver&&!cielo.classList.contains('ver')&&!quieto)setTimeout(fugaz,500);
+    cielo.classList.toggle('ver',ver);
+  },{threshold:[0,.2,.45,.7,1]}).observe(portada);
+  if(!quieto)(function ciclo(){fugaz();setTimeout(ciclo,azar(1800,3800))})();
+})();
 /* Cuenta regresiva hasta el 24 de diciembre, 6:00 p. m. (hora de Quito) */
 const FIESTA=new Date('2026-12-24T18:00:00-05:00').getTime();
 function cuenta(){
