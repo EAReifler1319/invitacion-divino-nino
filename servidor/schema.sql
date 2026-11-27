@@ -4,8 +4,11 @@ CREATE TABLE IF NOT EXISTS confirmaciones (
   clave       TEXT    NOT NULL UNIQUE,   -- nombre normalizado (para no duplicar)
   familia     TEXT    NOT NULL,          -- como lo escribieron
   personas    INTEGER NOT NULL,
-  foto        BLOB,                      -- JPEG ya achicado en el celular (~300 KB)
+  foto        BLOB,                      -- miniatura (~40 KB) para ver la lista rápido
   foto_tipo   TEXT,
   creado      TEXT    NOT NULL,
-  actualizado TEXT    NOT NULL
+  actualizado TEXT    NOT NULL,
+  hd_tipo     TEXT,                      -- la foto original en HD está en KV con la llave  hd:<id>
+  hd_bytes    INTEGER,
+  token       TEXT                       -- permiso de un solo uso para subir la foto HD
 );

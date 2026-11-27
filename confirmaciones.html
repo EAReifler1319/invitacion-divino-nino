@@ -89,7 +89,7 @@ button:disabled{opacity:.6;cursor:default}
 /* Para probar en la computadora: agregar ?api=http://127.0.0.1:8787 al link */
 const API=(new URLSearchParams(location.search).get('api')||'https://invitacion-nino-jesus.invitacion-nino-jesus-servidor.workers.dev').replace(/\/$/,'');
 const $=id=>document.getElementById(id);
-let clave='',datos=[];const fotos=new Map(); /* id -> URL de la foto ya descargada */
+let clave='',datos=[];const fotos=new Map(),fotosHD=new Map(); /* id -> URL de la miniatura / de la foto HD ya descargada */
 
 /* La clave se guarda solo si marcan "Recordarme" (y solo en este dispositivo) */
 function leerGuardada(){try{return localStorage.getItem('clave-confirmaciones')||''}catch(e){return ''}}
@@ -125,7 +125,7 @@ function pintar(){
       <div class="info">
         <h3>${e(d.familia)}</h3>
         <div><span class="num">${d.personas}</span> ${d.personas==1?'persona':'personas'} · <span class="num">${d.personas}</span> ${d.personas==1?'regalo':'regalos'}</div>
-        <div class="fecha">Confirmó: ${fecha(d.creado)}${d.actualizado!==d.creado?' · cambió: '+fecha(d.actualizado):''}</div>
+        <div class="fecha">${d.hd_bytes?'Foto HD · '+mb(d.hd_bytes)+' · ':''}Confirmó: ${fecha(d.creado)}${d.actualizado!==d.creado?' · cambió: '+fecha(d.actualizado):''}</div>
         <div class="mini"><button type="button" class="sec" data-bajar="${d.id}">Descargar</button><button type="button" class="borrar" data-borrar="${d.id}">Borrar</button></div>
       </div>
     </article>`).join(''):'<p class="vacio">'+(datos.length?'Ninguna familia con ese nombre.':'Todavía no hay confirmaciones. ✨')+'</p>';
@@ -136,21 +136,36 @@ async function urlFoto(id){
   const b=await (await api('/api/foto/'+id)).blob();
   const u=URL.createObjectURL(b);fotos.set(id,u);return u;
 }
+/* Foto original en HD (para ver en grande y descargar) */
+async function urlHD(id){
+  if(fotosHD.has(id))return fotosHD.get(id);
+  const b=await (await api('/api/foto-hd/'+id)).blob();
+  const u=URL.createObjectURL(b);fotosHD.set(id,u);return u;
+}
+const mb=b=>(b/1048576).toFixed(1).replace('.',',')+' MB';
 async function cargarFoto(img){try{img.src=await urlFoto(Number(img.dataset.id))}catch(x){img.alt='No se pudo cargar la foto'}}
-const nombreArchivo=d=>d.familia.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'-'+d.personas+'p.jpg';
+const EXT={'image/png':'png','image/webp':'webp','image/heic':'heic','image/heif':'heif'};
+const nombreArchivo=d=>d.familia.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'-'+d.personas+'p.'+(EXT[d.hd_tipo]||'jpg');
 
 $('grid').onclick=async ev=>{
   const t=ev.target;
-  if(t.matches('img.foto')&&t.src){$('visor-img').src=t.src;$('visor').hidden=false;return}
+  if(t.matches('img.foto')&&t.src){
+    const id=Number(t.dataset.id);$('visor-img').src=t.src;$('visor').hidden=false;
+    urlHD(id).then(u=>{if(!$('visor').hidden)$('visor-img').src=u}).catch(()=>{});return;
+  }
   if(t.dataset.bajar){
     const d=datos.find(x=>x.id==t.dataset.bajar);
-    const a=document.createElement('a');a.href=await urlFoto(d.id);a.download=nombreArchivo(d);a.click();return;
+    t.disabled=true;const txt=t.textContent;t.textContent='Bajando…';
+    try{const a=document.createElement('a');a.href=await urlHD(d.id);a.download=nombreArchivo(d);a.click()}
+    catch(x){$('err-panel').textContent='No se pudo descargar: '+x.message}
+    finally{t.disabled=false;t.textContent=txt}
+    return;
   }
   if(t.dataset.borrar){
     const d=datos.find(x=>x.id==t.dataset.borrar);
     if(!confirm('¿Borrar la confirmación de la familia '+d.familia+'? No se puede deshacer.'))return;
     t.disabled=true;
-    try{await api('/api/confirmacion/'+d.id,{method:'DELETE'});fotos.delete(d.id);await cargar()}
+    try{await api('/api/confirmacion/'+d.id,{method:'DELETE'});fotos.delete(d.id);fotosHD.delete(d.id);await cargar()}
     catch(x){$('err-panel').textContent='No se pudo borrar: '+x.message;t.disabled=false}
   }
 };
@@ -169,7 +184,7 @@ $('btn-zip').onclick=async()=>{
     const zip=new JSZip();let i=0;
     for(const d of datos){
       b.textContent='Preparando '+(++i)+' de '+datos.length+'…';
-      const r=await api('/api/foto/'+d.id);zip.file(nombreArchivo(d),await r.blob());
+      const r=await api('/api/foto-hd/'+d.id);zip.file(nombreArchivo(d),await r.blob(),{binary:true,compression:'STORE'}); /* las fotos ya vienen comprimidas */
     }
     b.textContent='Comprimiendo…';
     const z=await zip.generateAsync({type:'blob'});
@@ -179,7 +194,7 @@ $('btn-zip').onclick=async()=>{
 };
 
 function entrar(k){clave=k;$('entrar').hidden=true;$('panel').hidden=false;cargar()}
-function salir(){clave='';guardar('');datos=[];fotos.clear();$('panel').hidden=true;$('entrar').hidden=false;$('clave').value=''}
+function salir(){clave='';guardar('');datos=[];fotos.clear();fotosHD.clear();$('panel').hidden=true;$('entrar').hidden=false;$('clave').value=''}
 $('btn-salir').onclick=salir;
 $('form-clave').onsubmit=ev=>{
   ev.preventDefault();$('err-clave').textContent='';

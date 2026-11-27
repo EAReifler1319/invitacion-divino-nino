@@ -8,5 +8,10 @@ binding = "DB"
 database_name = "invitacion-confirmaciones"
 database_id = "f26a8b88-ad25-4d04-aa7c-fc905d986262"
 
+# Fotos originales en HD (hasta 25 MB cada una)
+[[kv_namespaces]]
+binding = "FOTOS"
+id = "bf99715a76de4f92b67a298576e28a6d"
+
 # La clave de la página de Emily NO va aquí: se guarda como secreto con
 #   npx wrangler secret put ADMIN_KEY

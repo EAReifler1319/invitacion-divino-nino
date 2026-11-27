@@ -649,18 +649,31 @@ function irConfirmar(fam,f){
   if(location.hash!=='#confirmar')history.pushState({cf:1},'','#confirmar');
   verConfirmar(true);
 }
-/* La foto se achica en el celular antes de subirla (sube rápido aunque el internet sea lento) */
-async function achicar(f){
+/* Copia chiquita de la foto (para que Emily vea la lista rápido). La original se sube aparte, en HD. */
+async function achicar(f,lado,calidad){
   try{
-    const img=await createImageBitmap(f),k=Math.min(1,1280/Math.max(img.width,img.height));
+    const img=await createImageBitmap(f),k=Math.min(1,lado/Math.max(img.width,img.height));
     const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
     c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-    const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));
+    const b=await new Promise(r=>c.toBlob(r,'image/jpeg',calidad));
     if(b)return b;
   }catch(e){}
-  return f; /* si el navegador no puede achicarla, se manda tal cual */
+  return null;
 }
-$('cf-volver').onclick=$('cf-volver').onclick=()=>{if(history.state&&history.state.cf)history.back();else{history.replaceState(null,'',location.pathname+location.search);verConfirmar(false)}};
+/* Sube la foto original con barra de avance (fetch no avisa el avance de subida; XMLHttpRequest sí) */
+function subirHD(id,token,foto,alAvanzar){
+  return new Promise((ok,no)=>{
+    const x=new XMLHttpRequest();
+    x.open('PUT',API+'/api/foto-hd/'+id);
+    x.setRequestHeader('X-Token',token);
+    x.setRequestHeader('Content-Type',foto.type||'image/jpeg');
+    x.upload.onprogress=e=>{if(e.lengthComputable)alAvanzar(e.loaded/e.total)};
+    x.onload=()=>{if(x.status>=200&&x.status<300)ok();else{let m='';try{m=JSON.parse(x.responseText).error}catch(e){};no(new Error(m||'No se pudo subir la foto'))}};
+    x.onerror=()=>no(new Error('network'));
+    x.send(foto);
+  });
+}
+$('cf-volver').onclick=()=>{if(history.state&&history.state.cf)history.back();else{history.replaceState(null,'',location.pathname+location.search);verConfirmar(false)}};
 addEventListener('popstate',()=>verConfirmar(location.hash==='#confirmar'&&!!conf));
 if(location.hash==='#confirmar')history.replaceState(null,'',location.pathname+location.search);
 $('send').onclick=async()=>{
@@ -670,13 +683,20 @@ $('send').onclick=async()=>{
   aviso('');
   const txt=btn.innerHTML;btn.disabled=true;btn.textContent='Enviando…';
   try{
+    /* 1) Nombre, personas y una miniatura */
+    const mini=await achicar(f,480,.8)||f;
     const datos=new FormData();
     datos.append('familia',fam);datos.append('personas',n);datos.append('web',$('web').value);
-    const foto=await achicar(f);
-    datos.append('foto',foto,'familia.'+(foto.type==='image/png'?'png':foto.type==='image/webp'?'webp':'jpg'));
+    datos.append('mini',mini,'mini.jpg');
     const r=await fetch(API+'/api/confirmar',{method:'POST',body:datos});
     const j=await r.json().catch(()=>({}));
     if(!r.ok)throw new Error(j.error||'No se pudo enviar');
+    /* 2) La foto original en HD (solo si pesa más de 24 MB se reduce, a 4000 px casi sin pérdida) */
+    if(j.id&&j.token){
+      const hd=f.size>24*1024*1024?(await achicar(f,4000,.92)||f):f;
+      btn.textContent='Subiendo tu foto en HD… 0%';
+      await subirHD(j.id,j.token,hd,p=>{btn.textContent='Subiendo tu foto en HD… '+Math.round(p*100)+'%'});
+    }
     irConfirmar(fam,f);
   }catch(e){
     aviso((e&&e.message&&!/fetch|network/i.test(e.message)?e.message+'. ':'No se pudo enviar. ')+'Revisa tu internet e inténtalo otra vez.','error');
