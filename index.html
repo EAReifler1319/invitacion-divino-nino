@@ -484,15 +484,9 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
       Confirmar mi asistencia</button>
     </div>
 
-    <p class="nota centro" style="margin-top:14px">Al tocar el botón se abre una página con el enlace de WhatsApp para enviarle tu confirmación a Emily.</p>
+    <p class="nota centro" style="margin-top:14px">Tu confirmación y tu foto le llegan directo a Emily.</p>
+    <input type="text" name="web" id="web" class="oculto" tabindex="-1" autocomplete="off" aria-hidden="true">
     <span class="orn o3" aria-hidden="true"></span>
-  </section>
-
-  <section class="card" id="host" hidden>
-    <span class="orn o1" aria-hidden="true"></span>
-    <h2>Mis confirmaciones</h2>
-    <div style="text-align:center">Total confirmado: <span class="tot" id="tot">0</span> personas</div>
-    <table><thead><tr><th></th><th>Familia</th><th>Personas</th></tr></thead><tbody id="rows"></tbody></table>
   </section>
 
   <div class="firma"><small>Con mucho cariño</small><div class="s">Emily Lamar</div><small>Prioste</small></div>
@@ -502,47 +496,17 @@ img.fam{width:46px;height:46px;border-radius:10px;object-fit:cover;border:1px so
   <section class="card">
     <span class="orn o1" aria-hidden="true"></span>
     <h2 id="cf-t">¡Gracias, familia <span id="cf-fam"></span>!</h2>
-    <p class="centro">Ya casi: falta enviarle tu confirmación a <b>Emily</b> por WhatsApp.</p>
+    <p class="cf-ok">✓ Tu confirmación ya le llegó a <b>Emily</b></p>
     <div class="cf-resumen"><img id="cf-foto" alt="Foto de tu familia"><div><b id="cf-n"></b><span id="cf-r"></span></div></div>
-    <!-- Celular: la foto y el mensaje se mandan juntos -->
-    <div id="cf-cel" hidden>
-      <button type="button" class="btn wa" id="cf-share">
-      <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.2c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.1 1-.5 1.4-.4.4-1.2.8-2 .7-1.2-.1-2.7-.8-4-2.1-1.4-1.4-2.1-2.9-2.2-3.9-.1-.8.2-1.4.6-1.9Z" fill="currentColor"/></svg>
-      Enviar foto y confirmación</button>
-      <div class="dinamica pasos-wa">
-        <b>Pasos:</b>
-        <ol>
-          <li>Toca el botón verde.</li>
-          <li>Elige <b>WhatsApp</b> y luego a <b>Emily</b>.</li>
-          <li>Presiona <b>enviar</b> ➤ (tu foto y tu confirmación van juntas).</li>
-        </ol>
-      </div>
-      <p class="nota centro" style="margin-top:14px">¿No aparece WhatsApp? <a class="cf-a" id="cf-wa2" href="#" target="_blank" rel="noopener">Abre el chat de Emily aquí</a> y adjunta la foto con el clip 📎.</p>
-    </div>
-    <!-- Computadora: WhatsApp no deja adjuntar fotos desde un enlace, así que la foto se copia sola para pegarla -->
-    <div id="cf-pc">
-      <a class="btn wa" id="cf-wa" href="#" target="_blank" rel="noopener">
-      <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.2c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.1 1-.5 1.4-.4.4-1.2.8-2 .7-1.2-.1-2.7-.8-4-2.1-1.4-1.4-2.1-2.9-2.2-3.9-.1-.8.2-1.4.6-1.9Z" fill="currentColor"/></svg>
-      Abrir WhatsApp de Emily</a>
-      <p class="cf-ok" id="cf-ok" role="status" hidden></p>
-      <p class="cf-link">Enlace: <a id="cf-url" href="#" target="_blank" rel="noopener"></a></p>
-      <div class="dinamica pasos-wa">
-        <b>Pasos:</b>
-        <ol>
-          <li>Toca <b>Abrir WhatsApp de Emily</b>: tu foto se copia sola.</li>
-          <li>En su chat, presiona <b>enviar</b> ➤ para mandar tu confirmación.</li>
-          <li id="cf-paso3">Luego presiona <b>Ctrl + V</b> (o clic derecho → <b>Pegar</b>) para poner tu foto, y envíala.</li>
-        </ol>
-      </div>
-      <div class="cf-extra"><button type="button" class="mini" id="cf-copiar">Copiar foto otra vez</button><a class="mini" id="cf-bajar" href="#" download="foto-familia.jpg">Descargar foto</a></div>
-    </div>
+    <p class="centro">¡Nos vemos el <b>24 de diciembre</b> a las <b>6:00 p. m.</b> en la iglesia de San Cristóbal!</p>
+    <p class="nota centro">¿Necesitas cambiar algo? Vuelve a confirmar con el <b>mismo nombre de familia</b> y se actualiza.</p>
     <button type="button" class="volver" id="cf-volver">← Volver a la invitación</button>
     <span class="orn o3" aria-hidden="true"></span>
   </section>
 </main>
 
 <script>
-let n=2,db=null,assets=null,me=null;
+let n=2;
 const $=id=>document.getElementById(id);
 
 /* Pétalos cayendo */
@@ -653,8 +617,6 @@ cuenta();
 function setN(v){n=Math.max(1,Math.min(30,v));$('n').textContent=n;$('nt').textContent=n==1?'persona':'personas'}
 $('mn').onclick=()=>setN(n-1);$('pl').onclick=()=>setN(n+1);
 
-/* Número de WhatsApp de Emily (con código de país, sin + ni espacios) */
-const WHATSAPP='593995628433';
 function aviso(t,tipo){const m=$('msg');m.className='ok '+(tipo||'');m.textContent=t}
 /* Foto: vista previa */
 $('pic').onchange=()=>{
@@ -668,100 +630,57 @@ $('fam').oninput=()=>$('fam').classList.remove('falta');
 function mensaje(fam){
   return '⭐ '+fam.toUpperCase()+(n===1?' asiste 1':' asisten '+n)+'\n🎁 '+n+(n===1?' regalo':' regalos')+' de $1';
 }
-/* En celular se puede mandar la foto y el mensaje juntos (en computadora "compartir" abre el menú de Windows/Mac, sin WhatsApp) */
-const CELULAR=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.userAgentData&&navigator.userAgentData.mobile)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
-/* Página de confirmación: se abre al tocar "Confirmar mi asistencia" (el botón atrás del celular vuelve a la invitación) */
+/* ---------- Servidor de confirmaciones (Cloudflare) ---------- */
+/* Para probar en la computadora: agregar ?api=http://127.0.0.1:8787 al link */
+const API=(new URLSearchParams(location.search).get('api')||'https://invitacion-nino-jesus.invitacion-nino-jesus-servidor.workers.dev').replace(/\/$/,'');
+/* Página de gracias (el botón atrás del celular vuelve a la invitación) */
 let conf=null;
 function verConfirmar(v){
   $('confirmar').hidden=!v;document.querySelector('.wrap').hidden=v;
   window.scrollTo(0,0);if(v)petalos(30,true);
 }
-/* Foto en PNG (lo que acepta el portapapeles), lista antes del clic para que copiar sea instantáneo */
-async function aPng(f){
-  const img=await createImageBitmap(f),k=Math.min(1,1600/Math.max(img.width,img.height));
-  const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
-  c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-  return await new Promise(r=>c.toBlob(r,'image/png'));
-}
-function aviso2(t,mal){const o=$('cf-ok');o.hidden=false;o.className='cf-ok'+(mal?' mal':'');o.textContent=t}
-async function copiarFoto(){
-  if(!conf||!navigator.clipboard||!window.ClipboardItem)throw 0;
-  const png=conf.png||(conf.png=await aPng(conf.f));
-  await navigator.clipboard.write([new ClipboardItem({'image/png':png})]);
-}
 function irConfirmar(fam,f){
-  const texto=mensaje(fam),url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(texto);
-  conf={fam,f,texto,url,png:null};
-  aPng(f).then(b=>{if(conf&&conf.f===f)conf.png=b}).catch(()=>{});
+  conf={fam};
   /* Si ya escribieron "Familia Lamar", no repetir la palabra */
   $('cf-fam').textContent=fam.replace(/^\s*(la\s+)?familia\s+/i,'');
   $('cf-n').textContent=n+(n===1?' persona':' personas');
   $('cf-r').textContent=n+(n===1?' regalo':' regalos')+' de $1';
-  const foto=URL.createObjectURL(f);
-  $('cf-foto').src=foto;$('cf-bajar').href=foto;
-  $('cf-wa').href=url;$('cf-wa2').href=url;$('cf-url').href=url;$('cf-url').textContent='wa.me/'+WHATSAPP;
-  $('cf-ok').hidden=true;
-  let puede=false;
-  try{puede=CELULAR&&!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
-  $('cf-cel').hidden=!puede;$('cf-pc').hidden=puede;
-  /* Celular sin "compartir": no hay Ctrl+V, se adjunta con el clip */
-  if(CELULAR){$('cf-paso3').innerHTML='Luego toca el clip 📎 y elige la foto de tu familia (puedes descargarla abajo).';$('cf-copiar').hidden=true;
-    $('cf-wa').parentNode.querySelector('.pasos-wa li').innerHTML='Toca <b>Abrir WhatsApp de Emily</b>.'}
+  $('cf-foto').src=URL.createObjectURL(f);
   if(location.hash!=='#confirmar')history.pushState({cf:1},'','#confirmar');
   verConfirmar(true);
 }
-/* Celular: foto + mensaje juntos */
-$('cf-share').onclick=()=>{
-  if(!conf)return;
-  navigator.share({files:[conf.f],text:conf.texto,title:'Confirmación Fiesta del Niño Jesús'}).then(()=>petalos(30,true)).catch(()=>{});
-};
-/* Computadora: copia la foto y luego abre el chat de Emily */
-$('cf-wa').onclick=async e=>{
-  if(!conf||CELULAR)return;
-  e.preventDefault();
-  let ok=false;
-  try{await Promise.race([copiarFoto(),new Promise((_,no)=>setTimeout(no,1500))]);ok=true}catch(x){}
-  aviso2(ok?'✓ Tu foto quedó copiada. En el chat de Emily presiona Ctrl + V para pegarla y envíala.'
-           :'No se pudo copiar la foto. En el chat usa el clip 📎 (o toca «Descargar foto» aquí abajo).',!ok);
-  const w=window.open(conf.url,'_blank');
-  if(w)w.opener=null;else location.href=conf.url;
-};
-$('cf-copiar').onclick=async()=>{
-  try{await copiarFoto();aviso2('✓ Foto copiada. Pégala en el chat con Ctrl + V.')}
-  catch(x){aviso2('No se pudo copiar la foto. Usa «Descargar foto» y adjúntala con el clip 📎.',true)}
-};
-$('cf-volver').onclick=()=>{if(history.state&&history.state.cf)history.back();else{history.replaceState(null,'',location.pathname+location.search);verConfirmar(false)}};
+/* La foto se achica en el celular antes de subirla (sube rápido aunque el internet sea lento) */
+async function achicar(f){
+  try{
+    const img=await createImageBitmap(f),k=Math.min(1,1280/Math.max(img.width,img.height));
+    const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));
+    if(b)return b;
+  }catch(e){}
+  return f; /* si el navegador no puede achicarla, se manda tal cual */
+}
+$('cf-volver').onclick=$('cf-volver').onclick=()=>{if(history.state&&history.state.cf)history.back();else{history.replaceState(null,'',location.pathname+location.search);verConfirmar(false)}};
 addEventListener('popstate',()=>verConfirmar(location.hash==='#confirmar'&&!!conf));
 if(location.hash==='#confirmar')history.replaceState(null,'',location.pathname+location.search);
-(async()=>{
-  try{
-    const c=window.claude;
-    if(c){
-      const user=await c.use('user'); db=await c.use('db'); assets=await c.use('assets');
-      if(user){me=await user.id(); if(user.isOwner()&&db)watch()}
-    }
-  }catch(e){}
-})();
-function watch(){
-  $('host').hidden=false;
-  db.collection('rsvps').onSnapshot(s=>{
-    let tot=0,h='';
-    const e=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    s.forEach(d=>{const r=d.data();tot+=r.people||0;
-      h+='<tr><td>'+(r.photo?'<img class="fam" src="/_blob/'+e(r.photo)+'" alt="">':'')+'</td><td>'+e(r.family||'')+'</td><td>'+(r.people||0)+'</td></tr>'});
-    $('tot').textContent=tot;$('rows').innerHTML=h||'<tr><td colspan="3">Aún no hay confirmaciones</td></tr>';
-  },()=>{});
-}
-$('send').onclick=()=>{
-  const fam=$('fam').value.trim(),f=$('pic').files[0];
+$('send').onclick=async()=>{
+  const fam=$('fam').value.trim(),f=$('pic').files[0],btn=$('send');
   if(!fam){aviso('Escribe el nombre de tu familia (paso 1).','error');$('fam').classList.add('falta');$('fam').focus();return}
   if(!f){aviso('Sube la foto de tu familia (paso 3).','error');$('subir').classList.add('falta');$('subir').scrollIntoView({behavior:'smooth',block:'center'});return}
   aviso('');
-  irConfirmar(fam,f);
-  /* Si la invitación está publicada en Claude, también se guarda en "Mis confirmaciones" */
-  if(db&&me&&assets){
-    assets.upload(f).then(r=>db.collection('rsvps').doc(me).set({family:fam,people:n,photo:r.id,at:Date.now()})).catch(()=>{});
-  }
+  const txt=btn.innerHTML;btn.disabled=true;btn.textContent='Enviando…';
+  try{
+    const datos=new FormData();
+    datos.append('familia',fam);datos.append('personas',n);datos.append('web',$('web').value);
+    const foto=await achicar(f);
+    datos.append('foto',foto,'familia.'+(foto.type==='image/png'?'png':foto.type==='image/webp'?'webp':'jpg'));
+    const r=await fetch(API+'/api/confirmar',{method:'POST',body:datos});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(j.error||'No se pudo enviar');
+    irConfirmar(fam,f);
+  }catch(e){
+    aviso((e&&e.message&&!/fetch|network/i.test(e.message)?e.message+'. ':'No se pudo enviar. ')+'Revisa tu internet e inténtalo otra vez.','error');
+  }finally{btn.disabled=false;btn.innerHTML=txt}
 };
 </script>
 <div class="esq bl" aria-hidden="true"><span></span></div>

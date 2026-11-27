@@ -1,0 +1,12 @@
+name = "invitacion-nino-jesus"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "invitacion-confirmaciones"
+database_id = "f26a8b88-ad25-4d04-aa7c-fc905d986262"
+
+# La clave de la página de Emily NO va aquí: se guarda como secreto con
+#   npx wrangler secret put ADMIN_KEY

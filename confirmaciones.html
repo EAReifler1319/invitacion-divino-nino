@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Confirmaciones – Fiesta del Niño Jesús</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3d5a8e">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&display=swap">
+<style>
+:root{--azul:#3d5a8e;--azul2:#334d7c;--azul3:#4b6aa0;--rosa:#f3c3cf;--rosa2:#e48fa6;--oro:#f9dc92;--crema:#fff4dc;
+  --serif:'Cormorant Garamond',Georgia,serif;--script:'Great Vibes',Georgia,serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:#fffaf6;font:500 19px/1.5 var(--serif);font-variant-numeric:lining-nums;
+  background:radial-gradient(120% 60% at 50% 0%,var(--azul3),var(--azul) 45%,var(--azul2)) fixed,var(--azul2)}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{margin:0;text-align:center;font-family:var(--script);font-weight:400;font-size:clamp(40px,10vw,56px);color:var(--rosa);line-height:1.1}
+.sub{text-align:center;margin:2px 0 22px;letter-spacing:.16em;text-transform:uppercase;font-size:15px;color:var(--oro)}
+.card{background:rgba(76,104,158,.82);border:1px solid rgba(233,207,143,.35);border-radius:24px;padding:22px;box-shadow:0 18px 40px -20px rgba(10,20,50,.6)}
+.entrar{max-width:420px;margin:30px auto 0;text-align:center}
+input[type=password]{width:100%;margin:12px 0;padding:13px 14px;border:1px solid rgba(255,255,255,.45);border-radius:14px;background:#fff;color:#26365a;font:600 20px var(--serif)}
+label.rec{display:flex;gap:8px;justify-content:center;align-items:center;font-size:17px;margin-bottom:6px}
+button,.boton{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border:0;border-radius:14px;cursor:pointer;
+  font:700 18px var(--serif);color:#fff;background:linear-gradient(135deg,#f1a6bb,var(--rosa2) 55%,#c9607e);text-decoration:none}
+button.sec{background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(249,220,146,.55)}
+button:disabled{opacity:.6;cursor:default}
+.error{color:#ffd0dc;min-height:1.4em;margin:8px 0 0}
+.totales{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.tot{min-width:0;text-align:center;padding:14px 4px;line-height:1.2;border-radius:18px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(233,207,143,.4)}
+.tot b{display:block;font-size:clamp(30px,8vw,42px);line-height:1;color:var(--oro)}
+.tot span{font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.barra input{flex:1 1 200px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.95);color:#26365a;font:600 18px var(--serif)}
+.acciones{display:flex;flex-wrap:wrap;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.fam{background:rgba(62,90,142,.9);border:1px solid rgba(233,207,143,.3);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.fam .foto{aspect-ratio:4/3;background:rgba(255,255,255,.08);display:block;width:100%;object-fit:cover;cursor:zoom-in}
+.fam .info{padding:12px 14px 14px}
+.fam h3{margin:0;font-size:22px;line-height:1.2;color:var(--crema)}
+.fam .num{color:var(--oro);font-weight:700}
+.fam .fecha{font-size:14px;opacity:.8}
+.fam .mini{display:flex;gap:8px;margin-top:10px}
+.fam .mini button,.fam .mini a{padding:6px 12px;font-size:15px;border-radius:10px}
+.fam .mini .borrar{background:rgba(255,150,175,.22)}
+.vacio{text-align:center;padding:40px 10px;opacity:.9}
+.visor{position:fixed;inset:0;z-index:9;background:rgba(10,18,40,.92);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+.visor img{max-width:100%;max-height:100%;border-radius:12px}
+.visor[hidden]{display:none}
+.tot b{margin-bottom:6px}
+@media (max-width:520px){.tot span{font-size:12px;letter-spacing:.06em}.acciones{width:100%}.acciones button{flex:1 1 auto}}
+</style></head>
+<body>
+<div class="wrap">
+  <h1>Confirmaciones</h1>
+  <p class="sub">Gran Fiesta del Niño Jesús · 24 de diciembre</p>
+
+  <!-- Entrar con la clave -->
+  <section class="card entrar" id="entrar">
+    <p style="margin:0">Escribe la clave para ver las confirmaciones.</p>
+    <form id="form-clave">
+      <input type="password" id="clave" placeholder="Clave" autocomplete="current-password" required>
+      <label class="rec"><input type="checkbox" id="recordar"> Recordarme en este dispositivo</label>
+      <button type="submit" id="btn-entrar">Entrar</button>
+      <p class="error" id="err-clave" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- Lista -->
+  <section id="panel" hidden>
+    <div class="totales">
+      <div class="tot"><b id="t-fam">0</b><span>Familias</span></div>
+      <div class="tot"><b id="t-per">0</b><span>Personas</span></div>
+      <div class="tot"><b id="t-reg">0</b><span>Regalos de $1</span></div>
+    </div>
+    <div class="barra">
+      <input type="search" id="buscar" placeholder="Buscar familia…">
+      <div class="acciones">
+        <button type="button" class="sec" id="btn-actualizar">Actualizar</button>
+        <button type="button" id="btn-zip">Descargar todas las fotos</button>
+        <button type="button" class="sec" id="btn-salir">Salir</button>
+      </div>
+    </div>
+    <p class="error" id="err-panel" role="alert"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+</div>
+<div class="visor" id="visor" hidden><img id="visor-img" alt=""></div>
+
+<script>
+/* Para probar en la computadora: agregar ?api=http://127.0.0.1:8787 al link */
+const API=(new URLSearchParams(location.search).get('api')||'https://invitacion-nino-jesus.invitacion-nino-jesus-servidor.workers.dev').replace(/\/$/,'');
+const $=id=>document.getElementById(id);
+let clave='',datos=[];const fotos=new Map(); /* id -> URL de la foto ya descargada */
+
+/* La clave se guarda solo si marcan "Recordarme" (y solo en este dispositivo) */
+function leerGuardada(){try{return localStorage.getItem('clave-confirmaciones')||''}catch(e){return ''}}
+function guardar(k){try{k?localStorage.setItem('clave-confirmaciones',k):localStorage.removeItem('clave-confirmaciones')}catch(e){}}
+
+async function api(ruta,op={}){
+  const r=await fetch(API+ruta,{...op,headers:{...(op.headers||{}),Authorization:'Bearer '+clave}});
+  if(r.status===401)throw Object.assign(new Error('Clave incorrecta'),{clave:true});
+  if(!r.ok)throw new Error('El servidor no respondió bien ('+r.status+')');
+  return r;
+}
+const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fecha=iso=>new Date(iso).toLocaleString('es-EC',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});
+
+async function cargar(){
+  $('err-panel').textContent='';$('btn-actualizar').disabled=true;
+  try{
+    const j=await (await api('/api/lista')).json();
+    datos=j.confirmaciones;
+    $('t-fam').textContent=j.familias;$('t-per').textContent=j.personas;$('t-reg').textContent=j.regalos;
+    pintar();
+  }catch(x){
+    if(x.clave){salir();$('err-clave').textContent='La clave no es correcta.';return}
+    $('err-panel').textContent='No se pudo cargar: '+x.message+'. Revisa tu internet y toca Actualizar.';
+  }finally{$('btn-actualizar').disabled=false}
+}
+function pintar(){
+  const q=$('buscar').value.trim().toLowerCase();
+  const lista=datos.filter(d=>!q||d.familia.toLowerCase().includes(q)).slice().reverse(); /* lo más nuevo primero */
+  $('grid').innerHTML=lista.length?lista.map(d=>`
+    <article class="fam">
+      <img class="foto" data-id="${d.id}" alt="Foto de la familia ${e(d.familia)}">
+      <div class="info">
+        <h3>${e(d.familia)}</h3>
+        <div><span class="num">${d.personas}</span> ${d.personas==1?'persona':'personas'} · <span class="num">${d.personas}</span> ${d.personas==1?'regalo':'regalos'}</div>
+        <div class="fecha">Confirmó: ${fecha(d.creado)}${d.actualizado!==d.creado?' · cambió: '+fecha(d.actualizado):''}</div>
+        <div class="mini"><button type="button" class="sec" data-bajar="${d.id}">Descargar</button><button type="button" class="borrar" data-borrar="${d.id}">Borrar</button></div>
+      </div>
+    </article>`).join(''):'<p class="vacio">'+(datos.length?'Ninguna familia con ese nombre.':'Todavía no hay confirmaciones. ✨')+'</p>';
+  $('grid').querySelectorAll('img.foto').forEach(cargarFoto);
+}
+async function urlFoto(id){
+  if(fotos.has(id))return fotos.get(id);
+  const b=await (await api('/api/foto/'+id)).blob();
+  const u=URL.createObjectURL(b);fotos.set(id,u);return u;
+}
+async function cargarFoto(img){try{img.src=await urlFoto(Number(img.dataset.id))}catch(x){img.alt='No se pudo cargar la foto'}}
+const nombreArchivo=d=>d.familia.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'-'+d.personas+'p.jpg';
+
+$('grid').onclick=async ev=>{
+  const t=ev.target;
+  if(t.matches('img.foto')&&t.src){$('visor-img').src=t.src;$('visor').hidden=false;return}
+  if(t.dataset.bajar){
+    const d=datos.find(x=>x.id==t.dataset.bajar);
+    const a=document.createElement('a');a.href=await urlFoto(d.id);a.download=nombreArchivo(d);a.click();return;
+  }
+  if(t.dataset.borrar){
+    const d=datos.find(x=>x.id==t.dataset.borrar);
+    if(!confirm('¿Borrar la confirmación de la familia '+d.familia+'? No se puede deshacer.'))return;
+    t.disabled=true;
+    try{await api('/api/confirmacion/'+d.id,{method:'DELETE'});fotos.delete(d.id);await cargar()}
+    catch(x){$('err-panel').textContent='No se pudo borrar: '+x.message;t.disabled=false}
+  }
+};
+$('visor').onclick=()=>{$('visor').hidden=true};
+$('buscar').oninput=pintar;
+$('btn-actualizar').onclick=cargar;
+
+/* Todas las fotos en un .zip (nombre de cada archivo = familia + personas) */
+$('btn-zip').onclick=async()=>{
+  const b=$('btn-zip'),txt=b.textContent;
+  if(!datos.length)return;
+  b.disabled=true;
+  try{
+    if(!window.JSZip)await new Promise((ok,no)=>{const s=document.createElement('script');
+      s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';s.onload=ok;s.onerror=no;document.head.appendChild(s)});
+    const zip=new JSZip();let i=0;
+    for(const d of datos){
+      b.textContent='Preparando '+(++i)+' de '+datos.length+'…';
+      const r=await api('/api/foto/'+d.id);zip.file(nombreArchivo(d),await r.blob());
+    }
+    b.textContent='Comprimiendo…';
+    const z=await zip.generateAsync({type:'blob'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(z);a.download='fotos-familias-nino-jesus.zip';a.click();
+  }catch(x){$('err-panel').textContent='No se pudieron descargar las fotos: '+(x.message||'error')}
+  finally{b.disabled=false;b.textContent=txt}
+};
+
+function entrar(k){clave=k;$('entrar').hidden=true;$('panel').hidden=false;cargar()}
+function salir(){clave='';guardar('');datos=[];fotos.clear();$('panel').hidden=true;$('entrar').hidden=false;$('clave').value=''}
+$('btn-salir').onclick=salir;
+$('form-clave').onsubmit=ev=>{
+  ev.preventDefault();$('err-clave').textContent='';
+  const k=$('clave').value.trim();if(!k)return;
+  guardar($('recordar').checked?k:'');entrar(k);
+};
+const g=leerGuardada();if(g){$('recordar').checked=true;entrar(g)}
+</script>
+</body></html>

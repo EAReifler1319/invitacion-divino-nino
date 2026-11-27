@@ -1,0 +1,16 @@
+{
+  "name": "invitacion-nino-jesus-servidor",
+  "private": true,
+  "description": "Guarda las confirmaciones (con foto) de la invitación y se las muestra a Emily.",
+  "scripts": {
+    "publicar": "wrangler deploy",
+    "local": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261123.1": true
+  }
+}

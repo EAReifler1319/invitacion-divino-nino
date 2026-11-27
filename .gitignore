@@ -1,1 +1,5 @@
 originales/
+servidor/node_modules/
+servidor/.wrangler/
+servidor/.dev.vars
+.claude/
